@@ -9,6 +9,9 @@ on:
 jobs:
   deploy-bootstrap:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - id: checkout
         name: Checkout
