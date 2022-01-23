@@ -3,8 +3,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 0-boostrap/*.tf*
-      - 0-boostrap/modules/*.tf*
+      - 0-bootstrap/*.tf*
+      - 0-bootstrap/modules/*.tf*
+      - .github/workflows/bootstrap-deploy.yml
 jobs:
   deploy-bootstrap:
     runs-on: ubuntu-latest
