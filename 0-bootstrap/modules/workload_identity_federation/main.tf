@@ -34,8 +34,8 @@ module "wif_project" {
 module "gh_oidc" {
   source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   project_id  = module.wif_project.project_id
-  pool_id     = "${var.project_prefix}-pool"
-  provider_id = "${var.project_prefix}-gh-provider"
+  pool_id     = "wif-gh-pool"
+  provider_id = "wif-gh-provider"
   sa_mapping = {
     "terraform-service-account" = {
       sa_name   = var.terraform_service_account_id

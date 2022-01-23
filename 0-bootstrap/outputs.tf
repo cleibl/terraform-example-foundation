@@ -33,3 +33,18 @@ output "gcs_bucket_tfstate" {
   description = "Bucket used for storing terraform state for foundations pipelines in seed project."
   value       = module.seed_bootstrap.gcs_bucket_tfstate
 }
+
+output "wif_project_id" {
+  description = "Project where service accounts and core APIs will be enabled."
+  value       = module.wif_bootstrap.wif_project_id
+}
+
+output "workload_identity_pool_name" {
+  description = "Pool Name"
+  value       = module.wif_bootstrap.workload_identity_pool_name
+}
+
+output "workload_identity_provider_name" {
+  description = "Provider name"
+  value       = module.wif_bootstrap.workload_identity_provider_name
+}
