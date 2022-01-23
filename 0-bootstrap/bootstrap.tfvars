@@ -24,7 +24,7 @@ group_billing_admins = "gcp-billing-admins@cloudfoundationtoolkit.com"
 
 default_region = "us-east1"
 
-github_repo = "scalesec/terraform-example-foundation"
+github_repo = "cleibl/terraform-example-foundation"
 
 // Optional - for an organization with existing projects or for development/validation.
 // Uncomment this variable to place all the example foundation resources under
