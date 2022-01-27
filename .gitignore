@@ -28,8 +28,8 @@ Session.vim
 *.tfstate
 *.tfstate.*
 
-# Local tfvars terraform.tfvars
-**/terraform.tfvars
+# # Local tfvars terraform.tfvars
+# **/terraform.tfvars
 
 # Crash log files
 crash.log

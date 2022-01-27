@@ -3,9 +3,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 0-bootstrap/*.tf*
-      - 0-bootstrap/modules/*.tf*
-      - .github/workflows/bootstrap-deploy.yml
+      - 0-org/*.tf*
+      - 0-org/modules/*.tf*
+      - .github/workflows/org-deploy.yml
 jobs:
   deploy-bootstrap:
     runs-on: ubuntu-latest
@@ -28,4 +28,4 @@ jobs:
         uses: docker://gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
         with:
           entrypoint: /bin/bash
-          args: -c "export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }} && cd 0-bootstrap/ && terraform init && terraform apply -var-file=bootstrap.tfvars -auto-approve"
+          args: -c "export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }} && cd 1-org/ && terraform init && terraform apply -var-file=org.tfvars -auto-approve"
