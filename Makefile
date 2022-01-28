@@ -22,6 +22,15 @@ DOCKER_TAG_VERSION_DEVELOPER_TOOLS := 0.13
 DOCKER_IMAGE_DEVELOPER_TOOLS := cft/developer-tools
 REGISTRY_URL := gcr.io/cloud-foundation-cicd
 
+# Sub variables in actions
+.PHONY: docker_sub_vars
+docker_sub_vars:
+	docker run --rm \
+		-v $(PWD):/workdir \
+		--entrypoint /bin/sh \
+        mikefarah/yq
+		./helper/actions_sub_vars.sh
+
 # Execute lint tests within the docker container
 .PHONY: docker_test_lint
 docker_test_lint:
