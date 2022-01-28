@@ -15,19 +15,19 @@
  */
 
 // Must include the domain of the organization you are deploying the foundation.
-domains_to_allow = ["example.com"]
+domains_to_allow = ["cloudfoundationtoolkit.com"]
 
-billing_data_users = "gcp-billing-admins@example.com"
+billing_data_users = "gcp-billing-admins@cloudfoundationtoolkit.com"
 
-audit_data_users = "gcp-security-admins@example.com"
+audit_data_users = "gcp-security-admins@cloudfoundationtoolkit.com"
 
-org_id = "000000000000"
+org_id = "790475255155"
 
-billing_account = "000000-000000-000000"
+billing_account = "014B3B-FEFA55-F8DEA8"
 
-terraform_service_account = "org-terraform@example-project-2334.iam.gserviceaccount.com"
+terraform_service_account = "org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com"
 
-default_region = "us-central1"
+default_region = "us-east1"
 
 scc_notification_name = "scc-notify"
 
