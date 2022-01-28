@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 0-org/*.tf*
+      - 0-org/*.tf
       - 0-org/modules/*.tf*
       - .github/workflows/org-deploy.yml
 jobs:
