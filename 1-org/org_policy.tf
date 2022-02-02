@@ -18,8 +18,8 @@ locals {
   organization_id = var.parent_folder != "" ? null : var.org_id
   folder_id       = var.parent_folder != "" ? var.parent_folder : null
   policy_for      = var.parent_folder != "" ? "folder" : "organization"
+  contact_domains_to_allow = [for domain in var.domains_to_allow : format("%s%s","@", domain)]
 }
-
 
 /******************************************
   Compute org policies
@@ -27,7 +27,7 @@ locals {
 
 module "org_disable_nested_virtualization" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -38,7 +38,7 @@ module "org_disable_nested_virtualization" {
 
 module "org_disable_serial_port_access" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -49,7 +49,7 @@ module "org_disable_serial_port_access" {
 
 module "org_compute_disable_guest_attributes_access" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -60,7 +60,7 @@ module "org_compute_disable_guest_attributes_access" {
 
 module "org_vm_external_ip_access" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -71,7 +71,7 @@ module "org_vm_external_ip_access" {
 
 module "org_skip_default_network" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -82,7 +82,7 @@ module "org_skip_default_network" {
 
 module "org_shared_vpc_lien_removal" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -94,7 +94,7 @@ module "org_shared_vpc_lien_removal" {
 module "org_shared_require_os_login" {
   source          = "terraform-google-modules/org-policy/google"
   count           = var.enable_os_login_policy ? 1 : 0
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -109,7 +109,7 @@ module "org_shared_require_os_login" {
 
 module "org_cloudsql_external_ip_access" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -124,16 +124,28 @@ module "org_cloudsql_external_ip_access" {
 
 module "org_domain_restricted_sharing" {
   source           = "terraform-google-modules/org-policy/google//modules/domain_restricted_sharing"
-  version          = "~> 3.0"
+  version          = "~> 5.1"
   organization_id  = local.organization_id
   folder_id        = local.folder_id
   policy_for       = local.policy_for
   domains_to_allow = var.domains_to_allow
 }
 
+module "org_allowed_contact_domains" {
+  source            = "terraform-google-modules/org-policy/google"
+  version           = "~> 5.1"
+  policy_for        = local.policy_for
+  organization_id   = local.organization_id
+  folder_id         = local.folder_id
+  constraint        = "constraints/essentialcontacts.allowedContactDomains"
+  policy_type       = "list"
+  allow             = local.contact_domains_to_allow
+  allow_list_length = length(var.domains_to_allow)
+}
+
 module "org_disable_sa_key_creation" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -144,7 +156,7 @@ module "org_disable_sa_key_creation" {
 
 module "org_disable_automatic_iam_grants_on_default_service_accounts" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
@@ -159,13 +171,24 @@ module "org_disable_automatic_iam_grants_on_default_service_accounts" {
 
 module "org_enforce_bucket_level_access" {
   source          = "terraform-google-modules/org-policy/google"
-  version         = "~> 3.0"
+  version         = "~> 5.1"
   organization_id = local.organization_id
   folder_id       = local.folder_id
   policy_for      = local.policy_for
   policy_type     = "boolean"
   enforce         = "true"
   constraint      = "constraints/storage.uniformBucketLevelAccess"
+}
+
+module "org_enforce_public_access_prevention" {
+  source          = "terraform-google-modules/org-policy/google"
+  version         = "~> 5.1"
+  organization_id = local.organization_id
+  folder_id       = local.folder_id
+  policy_for      = local.policy_for
+  policy_type     = "boolean"
+  enforce         = "true"
+  constraint      = "constraints/storage.publicAccessPrevention"
 }
 
 /******************************************
