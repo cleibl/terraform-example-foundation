@@ -15,11 +15,11 @@
  */
 
 module "env" {
-  source = "../../modules/env_baseline"
+  source = "../modules/env_baseline"
 
-  env              = "development"
-  environment_code = "d"
-
+  env              = "sandbox"
+  environment_code = "s"
+  enable_network   = false
   parent_id                  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
   org_id                     = var.org_id
   billing_account            = var.billing_account

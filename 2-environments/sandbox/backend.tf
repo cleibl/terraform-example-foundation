@@ -16,7 +16,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "UPDATE_ME"
-    prefix = "terraform/environments/development"
+    bucket = "bkt-b-tfstate-4b42"
+    prefix = "terraform/environments/sandbox"
   }
 }

@@ -132,3 +132,9 @@ variable "folder_prefix" {
   type        = string
   default     = "fldr"
 }
+
+variable "enable_network" {
+  description = "Flag used to enable or disable network projects for the environment"
+  type = bool
+  default = true
+}

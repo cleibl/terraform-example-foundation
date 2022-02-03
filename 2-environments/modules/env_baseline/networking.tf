@@ -19,10 +19,10 @@
 *****************************************/
 
 module "base_shared_vpc_host_project" {
+  count                       = var.enable_network ? 1 : 0
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   name                        = format("%s-%s-shared-base", var.project_prefix, var.environment_code)
   org_id                      = var.org_id
   billing_account             = var.billing_account
@@ -52,10 +52,10 @@ module "base_shared_vpc_host_project" {
 }
 
 module "restricted_shared_vpc_host_project" {
+  count                       = var.enable_network ? 1 : 0
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   name                        = format("%s-%s-shared-restricted", var.project_prefix, var.environment_code)
   org_id                      = var.org_id
   billing_account             = var.billing_account

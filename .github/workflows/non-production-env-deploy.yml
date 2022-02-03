@@ -1,0 +1,31 @@
+name: "Execute Non-Production Env Terraform Config"
+on:
+  push:
+    branches: [main]
+    paths:
+      - 2-environments/non-production/*.tf*
+      - 2-environments/modules/*.tf*
+      - .github/workflows/non-production-env-deploy.yml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v2
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.5.0'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: projects/649069422843/locations/global/workloadIdentityPools/wif-gh-pool/providers/wif-gh-provider
+          service_account: org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com
+      - id: 'apply'
+        name: 'Terraform Apply - Non Production Env'
+        uses: docker://gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
+        with:
+          entrypoint: /bin/bash
+          args: -c "export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }} && cd 2-environments/non-production && terraform init && terraform apply -var-file=environments.tfvars -auto-approve"

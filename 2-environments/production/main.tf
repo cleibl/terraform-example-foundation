@@ -15,10 +15,10 @@
  */
 
 module "env" {
-  source = "../../modules/env_baseline"
+  source = "../modules/env_baseline"
 
-  env              = "non-production"
-  environment_code = "n"
+  env              = "production"
+  environment_code = "p"
 
   parent_id                  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
   org_id                     = var.org_id

@@ -14,9 +14,14 @@
  * limitations under the License.
  */
 
-terraform {
-  backend "gcs" {
-    bucket = "UPDATE_ME"
-    prefix = "terraform/environments/production"
-  }
-}
+org_id = "790475255155"
+
+billing_account = "014B3B-FEFA55-F8DEA8"
+
+terraform_service_account = "org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com"
+
+monitoring_workspace_users = "gcp-monitoring-admins@cloudfoundationtoolkit.com"
+
+// Optional - for an organization with existing projects or for development/validation.
+// Must be the same value used in previous steps.
+//parent_folder = "01234567890"
