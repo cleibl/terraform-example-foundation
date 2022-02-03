@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - 0-bootstrap/*.tf*
-      - 0-bootstrap/modules/*.tf*
+      - 0-bootstrap/modules/workload_identity_federation/*.tf*
       - .github/workflows/bootstrap-deploy.yml
 jobs:
   deploy:

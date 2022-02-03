@@ -4,7 +4,6 @@ on:
     branches: [main]
     paths:
       - 1-org/*.tf
-      - 1-org/modules/*.tf*
       - .github/workflows/org-deploy.yml
 jobs:
   deploy:
