@@ -24,9 +24,9 @@ output "monitoring_project_id" {
   value       = module.monitoring_project.project_id
 }
 
-output "base_shared_vpc_project_id" {
+output "shared_vpc_project_id" {
   description = "Project for base shared VPC network."
-  value       = length(module.base_shared_vpc_host_project) > 0 ? module.base_shared_vpc_host_project[0].project_id : null
+  value       = length(module.shared_vpc_host_project) > 0 ? module.shared_vpc_host_project[0].project_id : null
 }
 
 output "env_secrets_project_id" {

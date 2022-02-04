@@ -156,10 +156,10 @@ resource "google_project_iam_member" "audit_bq_data_viewer" {
 }
 
 resource "google_project_iam_member" "scc_admin" {
-  count   = var.gcp_scc_admin != null ? 1 : 0
-  project = module.scc_notifications.project_id
+  count   = var.gcp_security_admin != null ? 1 : 0
+  project = module.security.project_id
   role    = "roles/securitycenter.adminEditor"
-  member  = "group:${var.gcp_scc_admin}"
+  member  = "group:${var.gcp_security_admin}"
 }
 
 resource "google_project_iam_member" "global_secrets_admin" {

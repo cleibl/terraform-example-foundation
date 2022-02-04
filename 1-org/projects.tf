@@ -20,9 +20,8 @@
 
 module "org_audit_logs" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
   name                        = "${var.project_prefix}-c-logging"
   org_id                      = var.org_id
@@ -46,9 +45,8 @@ module "org_audit_logs" {
 
 module "org_billing_logs" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
   name                        = "${var.project_prefix}-c-billing-logs"
   org_id                      = var.org_id
@@ -76,9 +74,8 @@ module "org_billing_logs" {
 
 module "org_secrets" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
   name                        = "${var.project_prefix}-c-secrets"
   org_id                      = var.org_id
@@ -106,9 +103,8 @@ module "org_secrets" {
 
 module "interconnect" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
   name                        = "${var.project_prefix}-c-interconnect"
   org_id                      = var.org_id
@@ -134,13 +130,12 @@ module "interconnect" {
   Project for SCC Notifications
 *****************************************/
 
-module "scc_notifications" {
+module "security" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
-  name                        = "${var.project_prefix}-c-scc"
+  name                        = "${var.project_prefix}-c-security"
   org_id                      = var.org_id
   billing_account             = var.billing_account
   folder_id                   = google_folder.common.id
@@ -148,16 +143,16 @@ module "scc_notifications" {
 
   labels = {
     environment       = "production"
-    application_name  = "org-scc"
+    application_name  = "org-security"
     billing_code      = "1234"
     primary_contact   = "example1"
     secondary_contact = "example2"
     business_code     = "abcd"
     env_code          = "p"
   }
-  budget_alert_pubsub_topic   = var.scc_notifications_project_alert_pubsub_topic
-  budget_alert_spent_percents = var.scc_notifications_project_alert_spent_percents
-  budget_amount               = var.scc_notifications_project_budget_amount
+  budget_alert_pubsub_topic   = var.security_project_alert_pubsub_topic
+  budget_alert_spent_percents = var.security_project_alert_spent_percents
+  budget_amount               = var.security_project_budget_amount
 }
 
 /******************************************
@@ -166,9 +161,8 @@ module "scc_notifications" {
 
 module "dns_hub" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
   name                        = "${var.project_prefix}-c-dns-hub"
   org_id                      = var.org_id
@@ -202,14 +196,13 @@ module "dns_hub" {
   Project for Base Network Hub
 *****************************************/
 
-module "base_network_hub" {
+module "network_hub" {
   source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
+  version                     = "~> 11.3"
   count                       = var.enable_hub_and_spoke ? 1 : 0
   random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
   default_service_account     = "deprivilege"
-  name                        = "${var.project_prefix}-c-base-net-hub"
+  name                        = "${var.project_prefix}-c-net-hub"
   org_id                      = var.org_id
   billing_account             = var.billing_account
   folder_id                   = google_folder.common.id
@@ -225,53 +218,14 @@ module "base_network_hub" {
 
   labels = {
     environment       = "production"
-    application_name  = "org-base-net-hub"
+    application_name  = "org-net-hub"
     billing_code      = "1234"
     primary_contact   = "example1"
     secondary_contact = "example2"
     business_code     = "abcd"
     env_code          = "p"
   }
-  budget_alert_pubsub_topic   = var.base_net_hub_project_alert_pubsub_topic
-  budget_alert_spent_percents = var.base_net_hub_project_alert_spent_percents
-  budget_amount               = var.base_net_hub_project_budget_amount
-}
-
-/******************************************
-  Project for Restricted Network Hub
-*****************************************/
-
-module "restricted_network_hub" {
-  source                      = "terraform-google-modules/project-factory/google"
-  version                     = "~> 10.1"
-  count                       = var.enable_hub_and_spoke ? 1 : 0
-  random_project_id           = "true"
-  impersonate_service_account = var.terraform_service_account
-  default_service_account     = "deprivilege"
-  name                        = "${var.project_prefix}-c-restricted-net-hub"
-  org_id                      = var.org_id
-  billing_account             = var.billing_account
-  folder_id                   = google_folder.common.id
-
-  activate_apis = [
-    "compute.googleapis.com",
-    "dns.googleapis.com",
-    "servicenetworking.googleapis.com",
-    "logging.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
-    "billingbudgets.googleapis.com"
-  ]
-
-  labels = {
-    environment       = "production"
-    application_name  = "org-restricted-net-hub"
-    billing_code      = "1234"
-    primary_contact   = "example1"
-    secondary_contact = "example2"
-    business_code     = "abcd"
-    env_code          = "p"
-  }
-  budget_alert_pubsub_topic   = var.restricted_net_hub_project_alert_pubsub_topic
-  budget_alert_spent_percents = var.restricted_net_hub_project_alert_spent_percents
-  budget_amount               = var.restricted_net_hub_project_budget_amount
+  budget_alert_pubsub_topic   = var.net_hub_project_alert_pubsub_topic
+  budget_alert_spent_percents = var.net_hub_project_alert_spent_percents
+  budget_amount               = var.net_hub_project_budget_amount
 }

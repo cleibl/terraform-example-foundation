@@ -60,7 +60,7 @@ output "interconnect_project_id" {
 }
 
 output "scc_notifications_project_id" {
-  value       = module.scc_notifications.project_id
+  value       = module.security.project_id
   description = "The SCC notifications project ID"
 }
 
@@ -69,14 +69,9 @@ output "dns_hub_project_id" {
   description = "The DNS hub project ID"
 }
 
-output "base_net_hub_project_id" {
-  value       = try(module.base_network_hub[0].project_id, null)
-  description = "The Base Network hub project ID"
-}
-
-output "restricted_net_hub_project_id" {
-  value       = try(module.restricted_network_hub[0].project_id, null)
-  description = "The Restricted Network hub project ID"
+output "net_hub_project_id" {
+  value       = try(module.network_hub[0].project_id, null)
+  description = "The Network hub project ID"
 }
 
 output "domains_to_allow" {

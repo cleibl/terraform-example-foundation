@@ -20,13 +20,13 @@
 
 resource "google_pubsub_topic" "scc_notification_topic" {
   name    = "top-scc-notification"
-  project = module.scc_notifications.project_id
+  project = module.security.project_id
 }
 
 resource "google_pubsub_subscription" "scc_notification_subscription" {
   name    = "sub-scc-notification"
   topic   = google_pubsub_topic.scc_notification_topic.name
-  project = module.scc_notifications.project_id
+  project = module.security.project_id
 }
 
 resource "google_scc_notification_config" "scc_notification_config" {

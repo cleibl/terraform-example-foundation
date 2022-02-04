@@ -37,7 +37,7 @@ variable "default_region" {
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "billing_data_users" {
@@ -153,38 +153,20 @@ variable "dns_hub_project_budget_amount" {
   default     = 1000
 }
 
-variable "base_net_hub_project_alert_spent_percents" {
-  description = "A list of percentages of the budget to alert on when threshold is exceeded for the base net hub project."
+variable "net_hub_project_alert_spent_percents" {
+  description = "A list of percentages of the budget to alert on when threshold is exceeded for the net hub project."
   type        = list(number)
   default     = [0.5, 0.75, 0.9, 0.95]
 }
 
-variable "base_net_hub_project_alert_pubsub_topic" {
-  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the base net hub project."
+variable "net_hub_project_alert_pubsub_topic" {
+  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the net hub project."
   type        = string
   default     = null
 }
 
-variable "base_net_hub_project_budget_amount" {
-  description = "The amount to use as the budget for the base net hub project."
-  type        = number
-  default     = 1000
-}
-
-variable "restricted_net_hub_project_alert_spent_percents" {
-  description = "A list of percentages of the budget to alert on when threshold is exceeded for the restricted net hub project."
-  type        = list(number)
-  default     = [0.5, 0.75, 0.9, 0.95]
-}
-
-variable "restricted_net_hub_project_alert_pubsub_topic" {
-  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the restricted net hub project."
-  type        = string
-  default     = null
-}
-
-variable "restricted_net_hub_project_budget_amount" {
-  description = "The amount to use as the budget for the restricted net hub project."
+variable "net_hub_project_budget_amount" {
+  description = "The amount to use as the budget for the net hub project."
   type        = number
   default     = 1000
 }
@@ -262,20 +244,20 @@ variable "org_audit_logs_project_budget_amount" {
   default     = 1000
 }
 
-variable "scc_notifications_project_alert_spent_percents" {
-  description = "A list of percentages of the budget to alert on when threshold is exceeded for the SCC notifications project."
+variable "security_project_alert_spent_percents" {
+  description = "A list of percentages of the budget to alert on when threshold is exceeded for the security project."
   type        = list(number)
   default     = [0.5, 0.75, 0.9, 0.95]
 }
 
-variable "scc_notifications_project_alert_pubsub_topic" {
-  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the SCC notifications project."
+variable "security_project_alert_pubsub_topic" {
+  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the security project."
   type        = string
   default     = null
 }
 
-variable "scc_notifications_project_budget_amount" {
-  description = "The amount to use as the budget for the SCC notifications project."
+variable "security_project_budget_amount" {
+  description = "The amount to use as the budget for the security project."
   type        = number
   default     = 1000
 }
@@ -310,7 +292,7 @@ variable "gcp_network_viewer" {
   default     = null
 }
 
-variable "gcp_scc_admin" {
+variable "gcp_security_admin" {
   description = "G Suite or Cloud Identity group that can administer Security Command Center."
   type        = string
   default     = null
@@ -344,4 +326,14 @@ variable "gcp_billing_admin_user" {
   description = "Identity that has billing administrator permissions"
   type        = string
   default     = null
+}
+
+variable "org_log_bucket_region" {
+  description = "The region to place the Central Organization Logging Bucket.  Defaults to Global"
+  default = "global"
+}
+
+variable "org_log_bucket_retention" {
+  description = "The amount of days to retain logs within the log bucket.  Defaults to 90 days"
+  default = "90"
 }

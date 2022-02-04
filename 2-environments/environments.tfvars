@@ -18,8 +18,6 @@ org_id = "790475255155"
 
 billing_account = "014B3B-FEFA55-F8DEA8"
 
-terraform_service_account = "org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com"
-
 monitoring_workspace_users = "gcp-monitoring-admins@cloudfoundationtoolkit.com"
 
 // Optional - for an organization with existing projects or for development/validation.

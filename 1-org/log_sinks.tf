@@ -23,7 +23,8 @@ locals {
     logName: /logs/cloudaudit.googleapis.com%2Fdata_access OR
     logName: /logs/compute.googleapis.com%2Fvpc_flows OR
     logName: /logs/compute.googleapis.com%2Ffirewall OR
-    logName: /logs/cloudaudit.googleapis.com%2Faccess_transparency
+    logName: /logs/cloudaudit.googleapis.com%2Faccess_transparency OR
+    resource.type="dns_query"
 EOF
   all_logs_filter      = ""
 }
