@@ -29,11 +29,6 @@ output "base_shared_vpc_project_id" {
   value       = length(module.base_shared_vpc_host_project) > 0 ? module.base_shared_vpc_host_project[0].project_id : null
 }
 
-output "restricted_shared_vpc_project_id" {
-  description = "Project for restricted shared VPC network."
-  value       = length(module.restricted_shared_vpc_host_project) > 0 ? module.restricted_shared_vpc_host_project[0].project_id : null
-}
-
 output "env_secrets_project_id" {
   description = "Project for environment secrets."
   value       = module.env_secrets.project_id

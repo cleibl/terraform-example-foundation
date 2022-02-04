@@ -35,32 +35,32 @@ resource "random_string" "suffix" {
 }
 
 /******************************************
-  Send logs to BigQuery
+  Send logs to Cloud Logging Bucket
 *****************************************/
 
-module "log_export_to_biqquery" {
+module "log_export_to_cloud_logging_bucket" {
   source                 = "terraform-google-modules/log-export/google"
   version                = "~> 7.3.0"
-  destination_uri        = module.bigquery_destination.destination_uri
+  destination_uri        = "logging.googleapis.com/projects/${module.org_audit_logs.project_id}/locations/${google_logging_project_bucket_config.org_logging_bucket.location}/buckets/${google_logging_project_bucket_config.org_logging_bucket.bucket_id}"
   filter                 = local.main_logs_filter
-  log_sink_name          = "sk-c-logging-bq"
+  log_sink_name          = "sk-c-logging-lgbkt"
   parent_resource_id     = local.parent_resource_id
   parent_resource_type   = local.parent_resource_type
   include_children       = true
   unique_writer_identity = true
-  bigquery_options = {
-    use_partitioned_tables = true
-  }
 }
 
-module "bigquery_destination" {
-  source                     = "terraform-google-modules/log-export/google//modules/bigquery"
-  version                    = "~> 7.3.0"
-  project_id                 = module.org_audit_logs.project_id
-  dataset_name               = "audit_logs"
-  log_sink_writer_identity   = module.log_export_to_biqquery.writer_identity
-  expiration_days            = var.audit_logs_table_expiration_days
-  delete_contents_on_destroy = var.audit_logs_table_delete_contents_on_destroy
+resource "google_project_iam_member" "project" {
+  project = module.org_audit_logs.project_id
+  role    = "roles/logging.bucketWriter"
+  member  = module.log_export_to_cloud_logging_bucket.writer_identity
+}
+
+resource "google_logging_project_bucket_config" "org_logging_bucket" {
+    project    = module.org_audit_logs.project_id
+    location  = var.org_log_bucket_region
+    retention_days = var.org_log_bucket_retention
+    bucket_id = "lgbkt-${module.org_audit_logs.project_id}-org-logs-${random_string.suffix.result}"
 }
 
 /******************************************
