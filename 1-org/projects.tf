@@ -229,3 +229,37 @@ module "network_hub" {
   budget_alert_spent_percents = var.net_hub_project_alert_spent_percents
   budget_amount               = var.net_hub_project_budget_amount
 }
+
+module "network_shared_services" {
+  source                      = "terraform-google-modules/project-factory/google"
+  version                     = "~> 11.3"
+  count                       = var.enable_hub_and_spoke ? 1 : 0
+  random_project_id           = "true"
+  default_service_account     = "deprivilege"
+  name                        = "${var.project_prefix}-c-net-shared-services"
+  org_id                      = var.org_id
+  billing_account             = var.billing_account
+  folder_id                   = google_folder.common.id
+
+  activate_apis = [
+    "compute.googleapis.com",
+    "dns.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "logging.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "billingbudgets.googleapis.com"
+  ]
+
+  labels = {
+    environment       = "production"
+    application_name  = "org-net-shared-services"
+    billing_code      = "1234"
+    primary_contact   = "example1"
+    secondary_contact = "example2"
+    business_code     = "abcd"
+    env_code          = "p"
+  }
+  budget_alert_pubsub_topic   = var.net_shared_services_project_alert_pubsub_topic
+  budget_alert_spent_percents = var.net_shared_services_project_alert_spent_percents
+  budget_amount               = var.net_shared_services_project_budget_amount
+}

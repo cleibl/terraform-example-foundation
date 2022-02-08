@@ -24,11 +24,6 @@ variable "billing_account" {
   type        = string
 }
 
-variable "terraform_service_account" {
-  description = "Service account email of the account to impersonate to run Terraform."
-  type        = string
-}
-
 variable "default_region" {
   description = "Default region for BigQuery resources."
   type        = string
@@ -166,6 +161,24 @@ variable "net_hub_project_alert_pubsub_topic" {
 }
 
 variable "net_hub_project_budget_amount" {
+  description = "The amount to use as the budget for the net hub project."
+  type        = number
+  default     = 1000
+}
+
+variable "net_shared_services_project_alert_spent_percents" {
+  description = "A list of percentages of the budget to alert on when threshold is exceeded for the net hub project."
+  type        = list(number)
+  default     = [0.5, 0.75, 0.9, 0.95]
+}
+
+variable "net_shared_services_project_alert_pubsub_topic" {
+  description = "The name of the Cloud Pub/Sub topic where budget related messages will be published, in the form of `projects/{project_id}/topics/{topic_id}` for the net hub project."
+  type        = string
+  default     = null
+}
+
+variable "net_shared_services_project_budget_amount" {
   description = "The amount to use as the budget for the net hub project."
   type        = number
   default     = 1000
