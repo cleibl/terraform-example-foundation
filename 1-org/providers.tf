@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-locals {
-  tf_sa = var.terraform_service_account
-}
-
 provider "google" {
   scopes = [
     "https://www.googleapis.com/auth/cloud-platform",
