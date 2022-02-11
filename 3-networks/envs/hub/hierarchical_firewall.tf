@@ -21,7 +21,7 @@ module "hierarchical_firewall_policy" {
   associations = [
     data.google_active_folder.common.name,
     data.google_active_folder.bootstrap.name,
-    data.google_active_folder.development.name,
+    data.google_active_folder.sandbox.name,
     data.google_active_folder.production.name,
     data.google_active_folder.non-production.name,
   ]

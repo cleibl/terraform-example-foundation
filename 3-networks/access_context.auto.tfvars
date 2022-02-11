@@ -14,9 +14,4 @@
  * limitations under the License.
  */
 
-terraform {
-  backend "gcs" {
-    bucket = "bkt-b-tfstate-4b42"
-    prefix = "terraform/networks/non-production"
-  }
-}
+access_context_manager_policy_id = 340469432653

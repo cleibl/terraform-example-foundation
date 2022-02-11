@@ -145,3 +145,9 @@ variable "enable_hub_and_spoke_transitivity" {
   type        = bool
   default     = false
 }
+
+variable "enable_dedicated_interconnect" {
+  description = "Enable Dedicated Interconnect in the environment."
+  type = bool
+  default = false
+}

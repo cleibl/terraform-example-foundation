@@ -251,13 +251,13 @@ module "network_shared_services" {
   ]
 
   labels = {
-    environment       = "production"
+    environment       = "shared-services"
     application_name  = "org-net-shared-services"
     billing_code      = "1234"
     primary_contact   = "example1"
     secondary_contact = "example2"
     business_code     = "abcd"
-    env_code          = "p"
+    env_code          = "ss"
   }
   budget_alert_pubsub_topic   = var.net_shared_services_project_alert_pubsub_topic
   budget_alert_spent_percents = var.net_shared_services_project_alert_spent_percents

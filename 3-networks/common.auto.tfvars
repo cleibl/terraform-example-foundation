@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-// Must include the domain of the organization you are deploying the foundation.
-domains_to_allow = ["cloudfoundationtoolkit.com"]
-
-billing_data_users = "gcp-billing-admins@cloudfoundationtoolkit.com"
-
-audit_data_users = "gcp-security-admins@cloudfoundationtoolkit.com"
-
 org_id = "790475255155"
 
-billing_account = "014B3B-FEFA55-F8DEA8"
+terraform_service_account = "org-terraform@prj-b-seed-2334.iam.gserviceaccount.com"
 
-default_region = "us-east1"
+default_region1 = "us-east1"
 
-scc_notification_name = "scc-notify"
+default_region2 = "us-west1"
 
-enable_hub_and_spoke = true
-
-create_access_context_manager_access_policy = true
+// The DNS name of peering managed zone. Must end with a period.
+domain = "cloudfoundationtoolkit.com."
 
 // Optional - for an organization with existing projects or for development/validation.
-// Must be the same value used in step 0-bootstrap.
-//parent_folder = "01234567890"
+// Must be the same value used in previous steps.
+//parent_folder = "000000000000"
 
-//scc_notification_filter = "state=\\\"ACTIVE\\\""
+// Optional - for an organization who wants to use DEDICATED interconnects for hybrid cloud connectivity
+// enable_dedicated_interconnect = true
 
+// Optional - for an organization who wants to use PARTNER interconnects for hybrid cloud connectivity
 
+// enable_partner_interconnect = true
+// preactivate_partner_interconnect = true

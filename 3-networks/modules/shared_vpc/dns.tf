@@ -24,25 +24,12 @@ data "google_active_folder" "common" {
 }
 
 /******************************************
-  DNS Hub Project
-*****************************************/
-
-data "google_projects" "dns_hub" {
-  filter = "parent.id:${split("/", data.google_active_folder.common.name)[1]} labels.application_name=org-dns-hub lifecycleState=ACTIVE"
-}
-
-data "google_compute_network" "vpc_dns_hub" {
-  name    = "vpc-c-dns-hub"
-  project = data.google_projects.dns_hub.projects[0].project_id
-}
-
-/******************************************
   Default DNS Policy
  *****************************************/
 
 resource "google_dns_policy" "default_policy" {
   project                   = var.project_id
-  name                      = "dp-${var.environment_code}-shared-base-default-policy"
+  name                      = "dp-${var.environment_code}-shared-default-policy"
   enable_inbound_forwarding = var.dns_enable_inbound_forwarding
   enable_logging            = var.dns_enable_logging
   networks {
@@ -59,7 +46,7 @@ module "private_googleapis" {
   version     = "~> 4.0"
   project_id  = var.project_id
   type        = "private"
-  name        = "dz-${var.environment_code}-shared-base-apis"
+  name        = "dz-${var.environment_code}-shared-apis"
   domain      = "googleapis.com."
   description = "Private DNS zone to configure private.googleapis.com"
 
@@ -92,7 +79,7 @@ module "base_gcr" {
   version     = "~> 3.1"
   project_id  = var.project_id
   type        = "private"
-  name        = "dz-${var.environment_code}-shared-base-gcr"
+  name        = "dz-${var.environment_code}-shared-gcr"
   domain      = "gcr.io."
   description = "Private DNS zone to configure gcr.io"
 
@@ -125,7 +112,7 @@ module "base_pkg_dev" {
   version     = "~> 3.1"
   project_id  = var.project_id
   type        = "private"
-  name        = "dz-${var.environment_code}-shared-base-pkg-dev"
+  name        = "dz-${var.environment_code}-shared-pkg-dev"
   domain      = "pkg.dev."
   description = "Private DNS zone to configure pkg.dev"
 
@@ -150,19 +137,20 @@ module "base_pkg_dev" {
 }
 
 /******************************************
- Creates DNS Peering to DNS HUB
+ Creates DNS Peering to HUB
 *****************************************/
 module "peering_zone" {
+  count       = var.mode == "spoke" ? 1 : 0
   source      = "terraform-google-modules/cloud-dns/google"
-  version     = "~> 3.1"
+  version     = "~> 4.1"
   project_id  = var.project_id
   type        = "peering"
-  name        = "dz-${var.environment_code}-shared-base-to-dns-hub"
+  name        = "dz-${var.environment_code}-network-to-hub"
   domain      = var.domain
   description = "Private DNS peering zone."
 
   private_visibility_config_networks = [
     module.main.network_self_link
   ]
-  target_network = data.google_compute_network.vpc_dns_hub.self_link
+  target_network = data.google_compute_network.vpc_net_hub[0].self_link
 }

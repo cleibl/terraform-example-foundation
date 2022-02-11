@@ -15,8 +15,8 @@
  */
 
 locals {
-  environment_code          = "p"
-  env                       = "production"
+  environment_code          = "ss"
+  env                       = "shared-services"
   network_project_id        = data.google_projects.network_host_project.projects[0].project_id
   parent_id                 = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
   mode                      = var.enable_hub_and_spoke ? "spoke" : null
@@ -25,29 +25,29 @@ locals {
   /*
    * Base network ranges
    */
-  network_subnet_aggregates    = ["10.0.0.0/16", "10.1.0.0/16", "100.64.0.0/16", "100.65.0.0/16"]
+  network_subnet_aggregates = ["10.0.0.0/16", "10.1.0.0/16", "100.64.0.0/16", "100.65.0.0/16"]
   network_subnet_ranges    = ["10.0.0.0/24", "10.1.0.0/24"]
-  network_private_service_cidr = "10.16.192.0/21"
+  network_private_service_cidr = "10.16.64.0/21"
   network_subnet_primary_ranges = {
-    (var.default_region1) = "10.0.192.0/21"
-    (var.default_region2) = "10.1.192.0/21"
+    (var.default_region1) = "10.0.64.0/21"
+    (var.default_region2) = "10.1.64.0/21"
   }
   network_subnet_secondary_ranges = {
     (var.default_region1) = [
       {
         range_name    = "rn-${local.environment_code}-shared-${var.default_region1}-gke-pod"
-        ip_cidr_range = "100.64.192.0/21"
+        ip_cidr_range = "100.64.64.0/21"
       },
       {
         range_name    = "rn-${local.environment_code}-shared-${var.default_region1}-gke-svc"
-        ip_cidr_range = "100.64.200.0/21"
+        ip_cidr_range = "100.64.72.0/21"
       }
     ]
   }
 }
 
 data "google_active_folder" "env" {
-  display_name = "${var.folder_prefix}-${local.env}"
+  display_name = "${var.folder_prefix}-common"
   parent       = local.parent_id
 }
 
@@ -56,7 +56,7 @@ data "google_active_folder" "env" {
 *****************************************/
 
 data "google_projects" "network_host_project" {
-  filter = "parent.id:${split("/", data.google_active_folder.env.name)[1]} labels.application_name=shared-vpc-host labels.environment=${local.env} lifecycleState=ACTIVE"
+  filter = "parent.id:${split("/", data.google_active_folder.env.name)[1]} labels.application_name=org-net-shared-services labels.environment=${local.env} lifecycleState=ACTIVE"
 }
 
 /******************************************
