@@ -28,4 +28,4 @@ jobs:
         uses: docker://gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
         with:
           entrypoint: /bin/bash
-          args: -c "export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }} && cd 3-environments/envs/shared_services && terraform init && terraform apply -auto-approve"
+          args: -c "export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }} && cd 3-networks/envs/shared_services && terraform init && terraform apply -auto-approve"
