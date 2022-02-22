@@ -94,7 +94,7 @@ module "seed_bootstrap" {
 *******************************************/
 
 module "wif_bootstrap" {
-  source                         = "./modules/workload_identity_federation/"
+  source                         = "../modules/workload_identity_federation/"
   project_prefix                 = var.project_prefix
   billing_account                = var.billing_account
   org_id                         = var.org_id
