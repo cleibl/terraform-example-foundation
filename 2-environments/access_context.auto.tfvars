@@ -14,20 +14,4 @@
  * limitations under the License.
  */
 
-/******************************************
-  Folder lookups
-*****************************************/
-
-data "google_active_folder" "common" {
-  display_name = "${var.folder_prefix}-common"
-  parent       = local.parent
-}
-
-/******************************************
-  Environment Folder
-*****************************************/
-
-resource "google_folder" "env" {
-  display_name = "${var.folder_prefix}-${var.env}"
-  parent       = local.parent
-}
+access_context_manager_policy_id = 340469432653

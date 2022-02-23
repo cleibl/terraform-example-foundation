@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-output "env_folder" {
-  description = "Environment folder created under parent."
-  value       = google_folder.env.name
-}
+org_id = "000000000000"
 
-output "monitoring_project_id" {
-  description = "Project for monitoring infra."
-  value       = module.monitoring_project.project_id
-}
+terraform_service_account = "org-terraform@prj-b-seed-2334.iam.gserviceaccount.com"
 
-output "shared_vpc_project_id" {
-  description = "Project for base shared VPC network."
-  value       = length(module.shared_vpc_host_project) > 0 ? module.shared_vpc_host_project[0].project_id : null
-}
+default_region1 = "us-central1"
 
-output "env_secrets_project_id" {
-  description = "Project for environment secrets."
-  value       = module.env_secrets.project_id
-}
+default_region2 = "us-west1"
+
+// The DNS name of peering managed zone. Must end with a period.
+domain = "example.com."
+
+// Optional - for an organization with existing projects or for development/validation.
+// Must be the same value used in previous steps.
+//parent_folder = "000000000000"
+
+//enable_hub_and_spoke = true
+
+//enable_hub_and_spoke_transitivity = true

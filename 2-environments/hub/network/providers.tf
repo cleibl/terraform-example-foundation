@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+provider "google" {
+  alias = "impersonate"
 
-/******************************************
-  Monitoring - IAM
-*****************************************/
-
-resource "google_project_iam_member" "monitoring_editor" {
-  project = module.monitoring_project.project_id
-  role    = "roles/monitoring.editor"
-  member  = "group:${var.monitoring_workspace_users}"
+  scopes = [
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/userinfo.email",
+  ]
 }
