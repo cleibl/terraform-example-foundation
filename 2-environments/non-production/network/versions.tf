@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-module "env" {
-  source = "../modules/env_baseline"
-
-  env              = "non-production"
-  environment_code = "n"
-
-  parent_id                  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
-  org_id                     = var.org_id
-  billing_account            = var.billing_account
-  monitoring_workspace_users = var.monitoring_workspace_users
-  project_prefix             = var.project_prefix
-  folder_prefix              = var.folder_prefix
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 3.50"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 3.50"
+    }
+  }
 }
