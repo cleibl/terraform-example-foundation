@@ -3,8 +3,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 3-networks/envs/shared_services/*.tf
-      - 3-networks/modules/*/*.tf*
+      - 2-environments/shared-services/network/*.tf
+      - modules/shared_vpc/*.tf*
+      - modules/hierachical_firewall_policy/*.tf*
       - .github/workflows/shared-services-net-deploy.yml
 jobs:
   deploy:

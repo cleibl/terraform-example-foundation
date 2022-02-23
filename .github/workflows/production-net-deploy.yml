@@ -3,8 +3,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 3-networks/envs/production/*.tf
-      - 3-networks/modules/*/*.tf*
+      - 2-environments/production/network/*.tf
+      - modules/shared_vpc/*.tf*
+      - modules/hierachical_firewall_policy/*.tf*
       - .github/workflows/production-net-deploy.yml
 jobs:
   deploy:
