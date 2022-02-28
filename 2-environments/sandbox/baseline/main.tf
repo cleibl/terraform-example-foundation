@@ -15,7 +15,7 @@
  */
 
 module "env" {
-  source = "../../modules/env_baseline"
+  source = "../../../modules/env_baseline"
 
   env              = "sandbox"
   environment_code = "s"
