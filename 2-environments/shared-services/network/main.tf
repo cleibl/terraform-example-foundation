@@ -36,7 +36,7 @@ locals {
     (var.default_region1) = [
       {
         range_name    = "rn-${local.environment_code}-shared-${var.default_region1}-gke-pod"
-        ip_cidr_range = "100.65.192.0/21"
+        ip_cidr_range = "100.64.192.0/21"
       },
       {
         range_name    = "rn-${local.environment_code}-shared-${var.default_region1}-gke-svc"
