@@ -22,7 +22,7 @@ variable "org_id" {
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "enable_hub_and_spoke_transitivity" {

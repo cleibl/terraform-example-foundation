@@ -26,7 +26,7 @@ jobs:
           workload_identity_provider: projects/649069422843/locations/global/workloadIdentityPools/wif-gh-pool/providers/wif-gh-provider
           service_account: org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com
       - id: 'apply'
-        name: 'Terraform Apply - Production Net'
+        name: 'Terraform Apply - Shared Services Net'
         uses: docker://gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
         with:
           entrypoint: /bin/bash
