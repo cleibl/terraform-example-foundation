@@ -19,11 +19,6 @@ variable "org_id" {
   description = "Organization ID"
 }
 
-variable "terraform_service_account" {
-  type        = string
-  description = "Service account email of the account to impersonate to run Terraform."
-}
-
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool
