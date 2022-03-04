@@ -40,7 +40,7 @@ locals {
       },
       {
         range_name    = "rn-${local.environment_code}-shared-${var.default_region1}-gke-svc"
-        ip_cidr_range = "100.64.136.0/21"
+        ip_cidr_range = "100.65.136.0/21"
       }
     ]
   }

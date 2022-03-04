@@ -24,11 +24,6 @@ variable "access_context_manager_policy_id" {
   description = "The id of the default Access Context Manager policy created in step `1-org`. Can be obtained by running `gcloud access-context-manager policies list --organization YOUR_ORGANIZATION_ID --format=\"value(name)\"`."
 }
 
-variable "terraform_service_account" {
-  type        = string
-  description = "Service account email of the account to impersonate to run Terraform."
-}
-
 variable "default_region1" {
   type        = string
   description = "First subnet region. The shared vpc modules only configures two regions."
