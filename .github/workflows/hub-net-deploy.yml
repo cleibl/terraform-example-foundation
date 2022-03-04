@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 2-environments/hub/network/*.tf
+      - 2-environments/hub/network/*.tfvars
       - modules/dedicated_interconnect/*.tf*
       - modules/hierachical_firewall_policy/*.tf*
       - modules/partner_interconnect/*.tf*
