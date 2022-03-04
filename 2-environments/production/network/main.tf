@@ -27,10 +27,10 @@ locals {
    */
   network_subnet_aggregates    = ["10.0.0.0/16", "10.1.0.0/16", "100.64.0.0/16", "100.65.0.0/16"]
   network_subnet_ranges    = ["10.0.0.0/24", "10.1.0.0/24"]
-  network_private_service_cidr = "10.16.192.0/21"
+  network_private_service_cidr = "10.16.64.0/21"
   network_subnet_primary_ranges = {
-    (var.default_region1) = "10.0.192.0/21"
-    (var.default_region2) = "10.1.192.0/21"
+    (var.default_region1) = "10.0.64.0/21"
+    (var.default_region2) = "10.1.64.0/21"
   }
   network_subnet_secondary_ranges = {
     (var.default_region1) = [
@@ -40,7 +40,7 @@ locals {
       },
       {
         range_name    = "rn-${local.environment_code}-shared-${var.default_region1}-gke-svc"
-        ip_cidr_range = "100.64.200.0/21"
+        ip_cidr_range = "100.65.200.0/21"
       }
     ]
   }
