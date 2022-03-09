@@ -260,3 +260,19 @@ variable "peer_name" {
   type = string
   description = "Name of this BGP peer. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression a-z?"
 }
+
+variable "members" {
+  type        = list(string)
+  description = "An allowed list of members (users, service accounts). The signed-in identity originating the request must be a part of one of the provided members. If not specified, a request may come from any user (logged in/not logged in, etc.). Formats: user:{emailid}, serviceAccount:{emailid}"
+}
+
+variable "restricted_services" {
+  type        = list(string)
+  description = "List of services to restrict."
+}
+
+variable "mode" {
+  type        = string
+  description = "Network deployment mode, should be set to `hub` or `spoke` when `enable_hub_and_spoke` architecture chosen, keep as `null` otherwise."
+  default     = "hub"
+}
