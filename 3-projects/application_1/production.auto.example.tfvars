@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-access_context_manager_policy_id = 340469432653
-
-perimeter_name = {
-    shared-services =  "sp_ss_default_perimeter_0e94"
-    non-production  =  "sp_n_default_perimeter_3af8"
-    production      =  "sp_p_default_perimeter_c2c4"
-    common          =  "sp_c_default_perimeter_c8f9"
+project_metadata = {
+    project_suffix = "sample-1"
+    application_name = "app1-sample-app"
+    billing_code = "1234"
+    primary_contact = "cleibl-admin@cloudfoundationtoolkit.com"
+    secondary_contact = "cleibl-admin@cloudfoundationtoolkit.com"
+    business_code = "app1"
 }

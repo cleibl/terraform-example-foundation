@@ -86,7 +86,7 @@ variable "vpc_type" {
 variable "vpc_service_control_attach_enabled" {
   description = "Whether the project will be attached to a VPC Service Control Perimeter"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "vpc_service_control_perimeter_name" {
@@ -122,7 +122,7 @@ variable "project_prefix" {
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "sa_roles" {

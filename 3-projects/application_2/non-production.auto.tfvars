@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
-perimeter_name = "sp_p_shared_restricted_default_perimeter_????"
-
-//enable_hub_and_spoke = true
+non_prod_metadata = {
+    project_suffix = "sample-1"
+    application_name = "app1-sample-app"
+    billing_code = "1234"
+    primary_contact = "cleibl-admin@cloudfoundationtoolkit.com"
+    secondary_contact = "cleibl-admin@cloudfoundationtoolkit.com"
+    business_code = "app1"
+}

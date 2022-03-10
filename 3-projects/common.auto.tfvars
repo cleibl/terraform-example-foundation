@@ -18,6 +18,12 @@ org_id = "790475255155"
 
 billing_account = "014B3B-FEFA55-F8DEA8"
 
+project_metadata = {
+
+
+
+}
+
 // Optional - for an organization with existing projects or for development/validation.
 // Must be the same value used in previous steps.
 //parent_folder = "01234567890"

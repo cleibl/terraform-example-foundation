@@ -27,18 +27,21 @@ module "project" {
   project_prefix              = var.project_prefix
   enable_hub_and_spoke        = var.enable_hub_and_spoke
   sa_roles                    = ["roles/editor"]
-  enable_cloudbuild_deploy    = true
-  cloudbuild_sa               = var.app_infra_pipeline_cloudbuild_sa
   activate_apis = [
     "iam.googleapis.com",
-    "cloudresourcemanager.googleapis.com"
+    "cloudresourcemanager.googleapis.com",
+    "accesscontextmanager.googleapis.com"
   ]
 
+  vpc_service_control_attach_enabled = "true"
+  vpc_service_control_perimeter_name = "accessPolicies/${var.access_context_manager_policy_id}/servicePerimeters/${var.perimeter_name}"
+
+
   # Metadata
-  project_suffix    = var.non_prod_metadata["project_suffix"]
-  application_name  = var.non_prod_metadata["application_name"]
-  billing_code      = var.non_prod_metadata["billing_code"]
-  primary_contact   = var.non_prod_metadata["primary_contact"]
-  secondary_contact = var.non_prod_metadata["secondary_contact"]
-  business_code     = var.non_prod_metadata["business_code"]
+  project_suffix    = var.project_metadata["project_suffix"]
+  application_name  = var.project_metadata["application_name"]
+  billing_code      = var.project_metadata["billing_code"]
+  primary_contact   = var.project_metadata["primary_contact"]
+  secondary_contact = var.project_metadata["secondary_contact"]
+  business_code     = var.project_metadata["business_code"]
 }
