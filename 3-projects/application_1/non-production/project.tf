@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
+ locals {
+  env = "non-production"
+ }
+
 module "project" {
   source                      = "../../../modules/single_project"
   org_id                      = var.org_id
   billing_account             = var.billing_account
   folder_id                   = module.folders.1.id
-  environment                 = "non-production"
+  environment                 = local.env
   vpc_type                    = "base"
   alert_spent_percents        = var.alert_spent_percents
   alert_pubsub_topic          = var.alert_pubsub_topic
@@ -34,7 +38,7 @@ module "project" {
   ]
 
   vpc_service_control_attach_enabled = "true"
-  vpc_service_control_perimeter_name = "accessPolicies/${var.access_context_manager_policy_id}/servicePerimeters/${var.perimeter_name}"
+  vpc_service_control_perimeter_name = "accessPolicies/${var.access_context_manager_policy_id}/servicePerimeters/${lookup(var.perimeter_name, local.env)}"
 
 
   # Metadata
