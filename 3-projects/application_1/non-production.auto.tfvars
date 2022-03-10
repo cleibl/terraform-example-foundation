@@ -15,10 +15,10 @@
  */
 
 project_metadata = {
-    project_suffix = "sample-1"
-    application_name = "app1-sample-app"
-    billing_code = "1234"
-    primary_contact = "cleibl-admin@cloudfoundationtoolkit.com"
-    secondary_contact = "cleibl-admin@cloudfoundationtoolkit.com"
-    business_code = "app1"
+    project_suffix = "sample-1",
+    application_name = "app1-sample-app",
+    billing_code = "1234",
+    primary_contact = "cleibl-admin@cloudfoundationtoolkit.com",
+    secondary_contact = "cleibl-admin@cloudfoundationtoolkit.com",
+    business_code = "app1",
 }

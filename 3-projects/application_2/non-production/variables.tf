@@ -31,7 +31,7 @@ variable "access_context_manager_policy_id" {
 
 variable "project_metadata" {
   description = "Metadata regarding the non-prod environment project"
-  type = map()
+  type = map(string)
 }
 
 variable "parent_folder" {
