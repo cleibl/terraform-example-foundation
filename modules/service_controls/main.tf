@@ -1,8 +1,8 @@
 locals {
   parent = var.parent_id
-  access_level_name = "alp_${var.env}_members_${random_id.random_access_level_suffix.hex}"
-  perimeter_name    = "sp_${var.env}_default_perimeter_${random_id.random_access_level_suffix.hex}"
-  bridge_name       = "spb_c_to_${var.env}_bridge_${random_id.random_access_level_suffix.hex}"
+  access_level_name = "alp_${var.environment_code}_members_${random_id.random_access_level_suffix.hex}"
+  perimeter_name    = "sp_${var.environment_code}_default_perimeter_${random_id.random_access_level_suffix.hex}"
+  bridge_name       = "spb_c_to_${var.environment_code}_bridge_${random_id.random_access_level_suffix.hex}"
 }
 
 data "google_projects" "net_hub" {

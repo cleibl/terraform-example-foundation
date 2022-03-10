@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-resource "random_id" "random_access_level_suffix" {
-  byte_length = 2
-}
-
 module "service_controls" {
-  count       = var.enable_service_control ? 1 : 0
-  source      = "../service_controls"
+  source      = "../../../modules/service_controls"
   members     = var.members
   restricted_services = var.restricted_services
   access_context_manager_policy_id = var.access_context_manager_policy_id
   mode = var.mode
-  project_number = var.project_number
-  parent_id = var.parent_id
-  env = var.env
+  project_number = data.google_project.network_host_project.number
+  parent_id = local.parent_id
+  env = local.env
   folder_prefix = var.folder_prefix
-  environment_code = var.environment_code
+  environment_code = local.environment_code
 }

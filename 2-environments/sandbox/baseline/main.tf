@@ -14,16 +14,50 @@
  * limitations under the License.
  */
 
+locals {
+  environment_code       = "s"
+  env                    = "sandbox"
+  network_project_id     = data.google_projects.network_host_project.projects[0].project_id
+  network_project_number = data.google_project.network_host_project.number
+  parent_id              = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
+}
+
+data "google_active_folder" "common" {
+  display_name = "${var.folder_prefix}-common"
+  parent       = local.parent_id
+}
+
+/******************************************
+ Network Hub Project
+*****************************************/
+
+data "google_projects" "network_host_project" {
+  filter = "parent.id:${split("/", data.google_active_folder.common.name)[1]} labels.application_name=org-net-hub lifecycleState=ACTIVE"
+}
+
+data "google_project" "network_host_project" {
+  project_id = data.google_projects.network_host_project.projects[0].project_id
+}
+
+/******************************************
+Environment
+*****************************************/
+
 module "env" {
   source = "../../../modules/env_baseline"
-
   env              = "sandbox"
   environment_code = "s"
   enable_network   = false
-  parent_id                  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
-  org_id                     = var.org_id
-  billing_account            = var.billing_account
-  monitoring_workspace_users = var.monitoring_workspace_users
-  project_prefix             = var.project_prefix
-  folder_prefix              = var.folder_prefix
+  parent_id                        = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
+  org_id                           = var.org_id
+  billing_account                  = var.billing_account
+  monitoring_workspace_users       = var.monitoring_workspace_users
+  project_prefix                   = var.project_prefix
+  folder_prefix                    = var.folder_prefix
+  members                          = var.members
+  restricted_services              = var.restricted_services
+  access_context_manager_policy_id = var.access_context_manager_policy_id
+  project_number                   = local.network_project_number
+  mode                             = var.mode
+  enable_service_control           = false
 }

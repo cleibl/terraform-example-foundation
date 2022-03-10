@@ -18,6 +18,7 @@ locals {
   environment_code           = "n"
   env                        = "non-production"
   network_project_id         = data.google_projects.network_host_project.projects[0].project_id
+  network_project_number     = data.google_project.network_host_project.number
   parent_id                  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
   mode                       = var.enable_hub_and_spoke ? "spoke" : null
   bgp_asn_number             = var.enable_partner_interconnect ? "16550" : "64514"

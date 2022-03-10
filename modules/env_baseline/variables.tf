@@ -141,3 +141,9 @@ variable "project_number" {
   type        = number
   description = "Project number for Restricted Shared VPC. It is the project INSIDE the regular service perimeter."
 }
+
+variable "enable_service_control" {
+  type = bool
+  description = "A flag to disable the creation of a service control perimeter for an environment"
+  default = true
+}

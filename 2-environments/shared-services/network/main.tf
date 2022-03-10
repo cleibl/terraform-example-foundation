@@ -59,6 +59,11 @@ data "google_projects" "network_host_project" {
   filter = "parent.id:${split("/", data.google_active_folder.env.name)[1]} labels.application_name=org-net-shared-services labels.environment=${local.env} lifecycleState=ACTIVE"
 }
 
+data "google_project" "network_host_project" {
+  project_id = data.google_projects.network_host_project.projects[0].project_id
+}
+
+
 /******************************************
  Shared VPC
 *****************************************/
