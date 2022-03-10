@@ -29,4 +29,5 @@ jobs:
         name: 'Terraform Apply - Projects'
         run: |
           export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}
-          ./helper/project-deploy-workflow.sh
+          git log -1 --pretty=format: --name-only --diff-filter=d | sort -u
+          # ./helper/project-deploy-workflow.sh
