@@ -10,6 +10,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      all: ${{ steps.changes.outputs.all}}
+      ts: ${{ steps.changes.outputs.ts }}
     container: gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
     permissions:
       id-token: write
@@ -25,16 +28,8 @@ jobs:
           token_format: 'access_token'
           workload_identity_provider: projects/649069422843/locations/global/workloadIdentityPools/wif-gh-pool/providers/wif-gh-provider
           service_account: org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com
-      - uses: jitterbit/get-changed-files@v1
-        with:
-          # Format of the steps output context.
-          # Can be 'space-delimited', 'csv', or 'json'.
-          # Default: 'space-delimited'
-          format: ''
-
       - id: 'apply'
         name: 'Terraform Apply - Projects'
         run: |
           export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}
-          changed_files=${{ steps.files.outputs.all }}
-          echo $changed_files
+          git diff --name-only --diff-filter=ACMRT HEAD^ HEAD | xargs
