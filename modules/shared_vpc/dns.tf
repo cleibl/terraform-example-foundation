@@ -152,5 +152,5 @@ module "peering_zone" {
   private_visibility_config_networks = [
     module.main.network_self_link
   ]
-  target_network = data.google_compute_network.vpc_net_hub[0].self_link
+  target_network = data.google_compute_network.vpc_net_hub.self_link
 }

@@ -26,14 +26,16 @@ locals {
 *****************************************/
 
 data "google_projects" "net_hub" {
-  count  = var.mode == "spoke" ? 1 : 0
   filter = "parent.id:${split("/", data.google_active_folder.common.name)[1]} labels.application_name=org-net-hub lifecycleState=ACTIVE"
 }
 
+data "google_project" "net_hub" {
+  project_id = data.google_projects.net_hub.projects[0].project_id
+}
+
 data "google_compute_network" "vpc_net_hub" {
-  count   = var.mode == "spoke" ? 1 : 0
   name    = "vpc-c-shared-net-hub"
-  project = data.google_projects.net_hub[0].projects[0].project_id
+  project = data.google_projects.net_hub.projects[0].project_id
 }
 
 /******************************************
@@ -94,7 +96,7 @@ module "peering" {
   count                     = var.mode == "spoke" ? 1 : 0
   prefix                    = "np"
   local_network             = module.main.network_self_link
-  peer_network              = data.google_compute_network.vpc_net_hub[0].self_link
+  peer_network              = data.google_compute_network.vpc_net_hub.self_link
   export_peer_custom_routes = true
 }
 
