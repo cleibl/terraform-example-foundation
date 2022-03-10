@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths:
       - 3-projects/*/*/*.tf
-      - ./helper/project-deploy-workflow.sh
+      - helper/project-deploy-workflow.sh
       - modules/single_project/*.tf*
       - .github/workflows/projects-deploy.yml
 jobs:
