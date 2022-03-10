@@ -14,16 +14,48 @@
  * limitations under the License.
  */
 
+locals {
+  environment_code       = "n"
+  env                    = "non-production"
+  network_project_id     = data.google_projects.network_host_project.projects[0].project_id
+  network_project_number = data.google_project.network_host_project.number
+  parent_id              = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
+}
+
+data "google_active_folder" "env" {
+  display_name = "${var.folder_prefix}-${local.env}"
+  parent       = local.parent_id
+}
+
+/******************************************
+  Network Hub Host Projects
+*****************************************/
+
+data "google_projects" "network_host_project" {
+  filter = "parent.id:${split("/", data.google_active_folder.env.name)[1]} labels.application_name=shared-vpc-host labels.environment=${local.env} lifecycleState=ACTIVE"
+}
+
+data "google_project" "network_host_project" {
+  project_id = data.google_projects.network_host_project.projects[0].project_id
+}
+
+/******************************************
+  Environment
+*****************************************/
+
 module "env" {
   source = "../../../modules/env_baseline"
-
-  env              = "non-production"
-  environment_code = "n"
-
-  parent_id                  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
-  org_id                     = var.org_id
-  billing_account            = var.billing_account
-  monitoring_workspace_users = var.monitoring_workspace_users
-  project_prefix             = var.project_prefix
-  folder_prefix              = var.folder_prefix
+  env                              = local.env
+  environment_code                 = local.environment_code
+  parent_id                        = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
+  org_id                           = var.org_id
+  billing_account                  = var.billing_account
+  monitoring_workspace_users       = var.monitoring_workspace_users
+  project_prefix                   = var.project_prefix
+  folder_prefix                    = var.folder_prefix
+  members                          = var.members
+  restricted_services              = var.restricted_services
+  access_context_manager_policy_id = var.access_context_manager_policy_id
+  project_number                   = local.network_project_number
+  mode                             = var.mode
 }
