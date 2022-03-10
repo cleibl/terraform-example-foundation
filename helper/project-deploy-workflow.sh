@@ -48,9 +48,9 @@ do
                 sed -i -e "s/ENV/$env_changed/" backend.tf
                 echo "hello: $PWD"
                 cat backend.tf
+                terraform init
+                terraform plan
             )
-            terraform init
-            terraform plan
         else
             echo "A file changed in root of directory.  Out of scope for this workflow"
         fi
