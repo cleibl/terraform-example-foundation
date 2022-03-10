@@ -44,7 +44,7 @@ do
         # Required so we ignore changes to .tfvars file at root of directory
         if [[ -d $child_dir_changed ]]; then
             (
-                cd $child_dir_changed
+                cd $child_dir_changed/$env_changed
                 sed -i -e "s/ENV/$env_changed/" backend.tf
                 echo "hello: $PWD"
                 cat backend.tf
