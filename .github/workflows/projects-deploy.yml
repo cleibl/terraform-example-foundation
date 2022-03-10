@@ -1,4 +1,4 @@
-name: "Execute Shared Services Network Terraform Config"
+name: "Execute Project Factory Terraform"
 on:
   push:
     branches: [main]
@@ -24,7 +24,8 @@ jobs:
           token_format: 'access_token'
           workload_identity_provider: projects/649069422843/locations/global/workloadIdentityPools/wif-gh-pool/providers/wif-gh-provider
           service_account: org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com
-      - id: 'Terraform Apply - Projects'
+      - id: 'apply'
+        name: 'Terraform Apply - Projects'
         run: |
           export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}
           ./helper/test-project-workflow.sh
