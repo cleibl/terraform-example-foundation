@@ -22,7 +22,7 @@ module "production_project" {
   source                      = "../../../modules/single_project"
   org_id                      = var.org_id
   billing_account             = var.billing_account
-  folder_id                   = data.google_active_folder.env.name
+  folder_id                   = module.folders.1.id
   environment                 = local.env
   vpc_type                    = "base"
   alert_spent_percents        = var.alert_spent_percents
@@ -32,7 +32,6 @@ module "production_project" {
   enable_hub_and_spoke        = var.enable_hub_and_spoke
   sa_roles                    = ["roles/editor"]
   enable_cloudbuild_deploy    = false
-  cloudbuild_sa               = var.app_infra_pipeline_cloudbuild_sa
   activate_apis = [
     "iam.googleapis.com",
     "cloudresourcemanager.googleapis.com",
