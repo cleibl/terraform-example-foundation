@@ -2,7 +2,7 @@
 
 # Get State Bucket Name
 
-STATE_BUCKET_NAME=$(cd ./0-bootstrap && terraform output gcs_bucket_tfstate)
+STATE_BUCKET_NAME=$(cd ./0-bootstrap && terraform init && terraform output gcs_bucket_tfstate)
 
 # Replace Statefile Bucket Name and Statefile Path in Backend config
 
@@ -41,7 +41,7 @@ do
                 echo "hello: $PWD"
             )
             terraform init
-            terraform plan --auto-approve
+            terraform plan
         else
             echo "A file changed in root of directory.  Out of scope for this workflow"
         fi
