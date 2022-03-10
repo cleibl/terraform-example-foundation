@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
-perimeter_name = "sp_d_shared_restricted_default_perimeter_????"
+org_id = "790475255155"
 
-//enable_hub_and_spoke = true
+billing_account = "014B3B-FEFA55-F8DEA8"
+
+// Optional - for an organization with existing projects or for development/validation.
+// Must be the same value used in previous steps.
+//parent_folder = "01234567890"

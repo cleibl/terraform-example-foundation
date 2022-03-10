@@ -13,11 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-billing_account = "000000-000000-000000"
-
-org_id = "000000000000"
-
-// Optional - for an organization with existing projects or for development/validation.
-// Must be the same value used in previous steps.
-//parent_folder = "01234567890"

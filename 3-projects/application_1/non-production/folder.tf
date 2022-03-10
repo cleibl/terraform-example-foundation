@@ -18,22 +18,16 @@
   parent_id = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
  }
 
-data "google_active_folder" "production" {
-  display_name = "${var.folder_prefix}-production"
-  parent       = local.parent_id
-}
-
 data "google_active_folder" "non-production" {
   display_name = "${var.folder_prefix}-non-production"
   parent       = local.parent_id
 }
 
 module "folders" {
-  count = 2
   source  = "terraform-google-modules/folders/google"
   version = "~> 3.0"
 
-  parent  = [data.google_active_folder.production, data.google_active_folder.non-production]
+  parent  = data.google_active_folder.non-production
 
   names = [
     dirname("${path.cwd}")

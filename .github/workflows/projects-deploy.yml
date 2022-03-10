@@ -1,0 +1,30 @@
+name: "Execute Shared Services Network Terraform Config"
+on:
+  push:
+    branches: [main]
+    paths:
+      - 3-projects/*/*.tf
+      - modules/single_project/*.tf*
+      - .github/workflows/projects-deploy.yml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v2
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.5.0'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: projects/649069422843/locations/global/workloadIdentityPools/wif-gh-pool/providers/wif-gh-provider
+          service_account: org-terraform@prj-b-seed-d0b9.iam.gserviceaccount.com
+      - id: 'Terraform Apply - Projects'
+        run: |
+          export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}
+          ./helper/test-project-workflow.sh

@@ -97,7 +97,7 @@ variable "folder_prefix" {
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "app_infra_pipeline_cloudbuild_sa" {

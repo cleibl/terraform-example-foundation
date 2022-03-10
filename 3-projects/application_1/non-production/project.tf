@@ -15,7 +15,7 @@
  */
 
 module "project" {
-  source                      = "../../modules/single_project"
+  source                      = "../../../modules/single_project"
   org_id                      = var.org_id
   billing_account             = var.billing_account
   folder_id                   = module.folders.1.id
