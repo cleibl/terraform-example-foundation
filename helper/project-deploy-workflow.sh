@@ -23,10 +23,6 @@ done
 # Execute Terraform for each Directory which had file changes on previous commit
 echo "Identifying directories with changed files and executing Terraform"
 
-# Get all the files that changed in the last commmit
-log=$(git diff --name-only --diff-filter=ACMRT HEAD^ HEAD | xargs)
-echo $log
-
 for file in $(git log -1 --pretty=format: --name-only --diff-filter=d | sort -u)
 do
     # Identify child directory off the root of repo for the file that changed
@@ -46,8 +42,6 @@ do
             (
                 cd $child_dir_changed/$env_changed
                 sed -i -e "s/ENV/$env_changed/" backend.tf
-                echo "hello: $PWD"
-                cat backend.tf
                 terraform init
                 terraform plan
             )
