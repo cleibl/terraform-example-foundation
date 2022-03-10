@@ -24,7 +24,8 @@ done
 echo "Identifying directories with changed files and executing Terraform"
 
 # Get all the files that changed in the last commmit
-git log -1 --pretty=format: --name-only --diff-filter=d | sort -u
+log=$(git log -1 --pretty=format: --name-only --diff-filter=d | sort -u)
+echo $log
 
 for file in $(git log -1 --pretty=format: --name-only --diff-filter=d | sort -u)
 do
