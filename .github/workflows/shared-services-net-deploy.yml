@@ -4,7 +4,8 @@ on:
     branches: [main]
     paths:
       - 2-environments/shared-services/network/*.tf
-      - 2-environments/network.tfvars
+      - 2-environments/common-network.tfvars
+      - 2-environments/shared-services-env.tfvars
       - modules/shared_vpc/*.tf*
       - modules/hierachical_firewall_policy/*.tf*
       - .github/workflows/shared-services-net-deploy.yml

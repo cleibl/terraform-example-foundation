@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 2-environments/production/*.tf*
+      - 2-environments/production-env.tfvars
+      - 2-environments/env-baseline.tfvars
       - 2-environments/modules/env_baseline/*.tf*
       - .github/workflows/production-env-deploy.yml
 jobs:

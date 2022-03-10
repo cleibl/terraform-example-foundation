@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 2-environments/non-production/network/*.tf
+      - 2-environments/common-network.tfvars
       - modules/shared_vpc/*.tf*
       - modules/hierachical_firewall_policy/*.tf*
       - .github/workflows/non-production-net-deploy.yml
