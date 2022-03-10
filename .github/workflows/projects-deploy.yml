@@ -3,16 +3,13 @@ on:
   push:
     branches: [main]
     paths:
-      - 3-projects/*/*.tf
+      - 3-projects/*/*/*.tf
       - ./helper/project-deploy-workflow.sh
       - modules/single_project/*.tf*
       - .github/workflows/projects-deploy.yml
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    outputs:
-      all: ${{ steps.changes.outputs.all}}
-      ts: ${{ steps.changes.outputs.ts }}
     container: gcr.io/cloud-foundation-cicd/cft/developer-tools:1.0
     permissions:
       id-token: write
