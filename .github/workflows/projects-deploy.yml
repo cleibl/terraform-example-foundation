@@ -34,4 +34,4 @@ jobs:
         name: 'Terraform Apply - Projects'
         run: |
           export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}
-          git diff --name-only --diff-filter=ACMRT HEAD^ HEAD | xargs
+          ./helper/project-deploy-workflow.sh
