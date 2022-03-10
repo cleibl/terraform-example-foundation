@@ -105,11 +105,6 @@ variable "enable_hub_and_spoke" {
   default     = true
 }
 
-variable "app_infra_pipeline_cloudbuild_sa" {
-  description = "Cloud Build SA used for deploying infrastructure"
-  type        = string
-}
-
 variable "secrets_prj_suffix" {
   description = "Name suffix to use for secrets project created."
   type        = string
