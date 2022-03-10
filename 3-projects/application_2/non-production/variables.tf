@@ -42,7 +42,7 @@ variable "parent_folder" {
 
 variable "perimeter_name" {
   description = "Access context manager service perimeter name to attach the restricted svpc project."
-  type        = string
+  type        = map(string)
 }
 
 variable "peering_module_depends_on" {
