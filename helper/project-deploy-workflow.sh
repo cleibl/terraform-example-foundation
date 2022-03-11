@@ -22,7 +22,8 @@ done
 
 # Execute Terraform for each Directory which had file changes on previous commit
 echo "Identifying directories with changed files and executing Terraform"
-
+#!  TODO: Need to get unique filenames per directory.  Loop will execute multiple times if multiple
+#!        Files are in the same directory 
 for file in $(git log -1 --pretty=format: --name-only --diff-filter=d | sort -u)
 do
     # Identify child directory off the root of repo for the file that changed
