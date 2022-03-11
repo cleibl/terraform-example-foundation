@@ -102,7 +102,7 @@ variable "folder_prefix" {
 variable "enable_hub_and_spoke" {
   description = "Enable Hub-and-Spoke architecture."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "secrets_prj_suffix" {
@@ -151,4 +151,8 @@ variable "folder_admins" {
   description = "List of IAM-style members that will get the extended permissions across all the folders."
   type = list(string)
   default = []
+}
+
+variable "folder_id" {
+  default = ""
 }

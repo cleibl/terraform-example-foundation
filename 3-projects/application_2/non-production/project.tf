@@ -16,13 +16,24 @@
 
 locals {
   env = "non-production"
+  env_code        = element(split("", local.env), 0)
+  shared_vpc_mode = var.enable_hub_and_spoke ? "net-spoke" : ""
 }
 
-module "production_project" {
+data "google_projects" "projects" {
+  filter = "parent.id:${split("/", data.google_active_folder.env.name)[1]} labels.application_name=shared-vpc-host labels.environment=${local.env} lifecycleState=ACTIVE"
+}
+
+data "google_compute_network" "shared_vpc" {
+  name    = "vpc-${local.env_code}-shared-${local.shared_vpc_mode}"
+  project = data.google_projects.projects.projects[0].project_id
+}
+
+module "project" {
   source                      = "../../../modules/single_project"
   org_id                      = var.org_id
   billing_account             = var.billing_account
-  folder_id                   = module.folders.1.id
+  folder_id                   = data.google_active_folder.env.name
   environment                 = local.env
   vpc_type                    = "base"
   alert_spent_percents        = var.alert_spent_percents
@@ -40,7 +51,8 @@ module "production_project" {
 
   vpc_service_control_attach_enabled = "true"
   vpc_service_control_perimeter_name = "accessPolicies/${var.access_context_manager_policy_id}/servicePerimeters/${lookup(var.perimeter_name, local.env)}"
-
+  svpc_host_project_id = data.google_compute_network.shared_vpc.project
+  project_parent_folder_id = module.folders.id
 
   # Metadata
   project_suffix    =  var.project_metadata["project_suffix"]

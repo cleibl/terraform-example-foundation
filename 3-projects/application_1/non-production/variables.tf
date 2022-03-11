@@ -146,3 +146,13 @@ variable "gcs_bucket_prefix" {
   type        = string
   default     = "cmek-encrypted-bucket"
 }
+
+variable "folder_admins" {
+  description = "List of IAM-style members that will get the extended permissions across all the folders."
+  type = list(string)
+  default = []
+}
+
+variable "folder_id" {
+  default = ""
+}

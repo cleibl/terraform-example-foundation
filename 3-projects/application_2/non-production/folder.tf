@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-data "google_active_folder" "common" {
-  display_name = "${var.folder_prefix}-common"
+data "google_active_folder" "env" {
+  display_name = "${var.folder_prefix}-${local.env}"
   parent       = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
 }
 
@@ -23,10 +23,10 @@ module "folders" {
   source  = "terraform-google-modules/folders/google"
   version = "~> 3.0"
 
-  parent  = var.parent_folder != "" ? "folders/${var.parent_folder}" : "organizations/${var.org_id}"
+  parent  = "${data.google_active_folder.env.id}"
 
   names = [
-    dirname("${path.cwd}")
+    "fldr-${local.env_code}-${split("/",dirname("${path.cwd}"))[3]}"
   ]
 
   set_roles = true

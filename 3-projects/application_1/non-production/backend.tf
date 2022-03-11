@@ -4,4 +4,3 @@ terraform {
     prefix = "terraform/projects/APP_NAME/ENV"
   }
 }
-//Test6

@@ -137,3 +137,10 @@ variable "cloudbuild_sa" {
   type        = string
   default     = ""
 }
+
+
+variable "svpc_host_project_id" {
+}
+
+variable "project_parent_folder_id" {
+}
