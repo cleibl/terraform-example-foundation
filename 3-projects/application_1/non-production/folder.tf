@@ -26,7 +26,7 @@ module "folders" {
   parent  = "${data.google_active_folder.env.id}"
 
   names = [
-    "fldr-${local.env_code}-${split("/",dirname("${path.cwd}"))[3]}"
+    "fldr-${local.env_code}-${split("/",dirname("${path.cwd}"))[6]}"
   ]
 
   set_roles = true
