@@ -32,4 +32,5 @@ jobs:
         name: 'Terraform Apply - Projects'
         run: |
           export GOOGLE_OAUTH_ACCESS_TOKEN=${{ steps.auth.outputs.access_token }}
-          ./helper/project-deploy-workflow.sh
+          echo $PWD
+          # ./helper/project-deploy-workflow.sh
